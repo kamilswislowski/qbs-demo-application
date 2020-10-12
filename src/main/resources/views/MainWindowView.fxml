@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.swislowski.kamil.java.javaFx.controller.MainWindowController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="113.0" layoutY="75.0" prefWidth="135.0" text="Wskaż katalog z plikami" />
+            <Label layoutX="369.0" layoutY="75.0" maxWidth="150.0" text="Rozszerzenie pliku" />
+            <VBox layoutX="-13.0" layoutY="262.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="87.71428571428572">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="600.0">
+                     <children>
+                        <TextField fx:id="stringOfBytes1TextField">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="stringOfBytes2TextField">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutY="101.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.topAnchor="101.0">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="400.0">
+                     <children>
+                        <TextField fx:id="fileDirectoryTextField">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="fileExtensionTextField">
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label layoutX="113.0" layoutY="237.0" text="Ciąg bajtów nr 1" />
+            <Label layoutX="369.0" layoutY="237.0" text="Ciąg bajtów nr 2" />
+            <Button fx:id="replaceBytesButton" layoutX="274.0" layoutY="312.0" mnemonicParsing="false" onAction="#replaceBytes" text="Button" />
+            <Button fx:id="directoryButtton" layoutX="80.0" layoutY="312.0" mnemonicParsing="false" onAction="#chooseDirectoryAction" text="DirectoryButton" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
