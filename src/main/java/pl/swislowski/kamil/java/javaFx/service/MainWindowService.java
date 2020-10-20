@@ -1,6 +1,11 @@
 package pl.swislowski.kamil.java.javaFx.service;
 
+import pl.swislowski.kamil.java.core.BytesManipulation;
+
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,19 +18,80 @@ public class MainWindowService {
     public List<File> directorySearch(File file, String extension) {
         List<File> searchedFiles = new ArrayList<>();
 
+        String trimmedExtension = extension;
+//                removeAllNonAlphanumeric(extension);
+
         if (file.isDirectory()) {
             LOGGER.info("Directory : " + file);
             File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                List<File> partialFiles = directorySearch(files[i], extension);
-                searchedFiles.addAll(partialFiles);
+            if (files != null) {
+                for (File f : files) {
+                    List<File> partialFiles = directorySearch(f, trimmedExtension);
+                    searchedFiles.addAll(partialFiles);
+                }
             }
         } else {
             LOGGER.info("File : " + file);
-            searchedFiles.add(file);
+            boolean filter = filter(file, trimmedExtension);
+            if (filter) {
+                searchedFiles.add(file);
+            }
         }
 
         return searchedFiles;
+    }
+
+    public String removeAllNonAlphanumeric(String string) {
+        return string.replaceAll("[^a-zA-Z0-9]", "");
+//        return string.trim();
+    }
+
+    boolean filter(File file, String extension) {
+        if (!file.isDirectory() && file.getName().contains(extension)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void processFiles(List<File> files, byte[] wantedBytes){
+        //Przeiterować po liście
+        try {
+            Path tempDirPath = Files.createTempDirectory("tempDirReplacedFiles");
+            for (File file : files) {
+                readFile(file, wantedBytes, tempDirPath);
+            }
+            //TODO: Rzucić własny wyjątek biznesowy.
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Otworzyć pliki i odczytać zawartość
+        //Wyszukać zadane ciągi bajtów
+        //Zamienić je z nowym ciągiem bajtów
+        //Stworzyć oddzielny folder
+        //Zapisać zmodyfikowane pliki do oddzielnego folderu
+    }
+
+    public File readFile(File file, byte[] wantedBytes, Path tempDirPath) {
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            BytesManipulation bytesManipulation = new BytesManipulation();
+//            int replace = bytesManipulation.replace(bytes, wantedBytes);
+//            LOGGER.info("######replace : " + replace);
+
+            File replacedBytesFile = null;
+            Path path = saveFile(bytes, tempDirPath);
+            LOGGER.info("#####Path : " + path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Path saveFile(byte[] bytes, Path tempDirPath) throws IOException {
+        Path tempFilePath = Files.createTempFile(tempDirPath, "xxx", "yyy");
+        return Files.write(tempFilePath, bytes);
     }
 
     List<File> filterFiles(File[] files, String extension) {

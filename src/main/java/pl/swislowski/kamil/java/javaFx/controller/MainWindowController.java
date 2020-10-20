@@ -114,14 +114,8 @@ public class MainWindowController {
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();
             }
-
         }
-
-//        FileInputStream fileInputStream = new FileInputStream(selectedFile);
-
-//        fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("Text Files", "*.txt")
-//                ,new FileChooser.ExtensionFilter("HTML Files", "*.htm")
-//        );
     }
+
+
 }
