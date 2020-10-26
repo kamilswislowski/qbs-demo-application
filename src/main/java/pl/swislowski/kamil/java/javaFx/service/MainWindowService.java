@@ -55,6 +55,7 @@ public class MainWindowService {
     }
 
     public void processFiles(List<File> files, byte[] wantedBytes){
+        LOGGER.info("processFiles()");
         //Przeiterować po liście
         try {
             Path tempDirPath = Files.createTempDirectory("tempDirReplacedFiles");

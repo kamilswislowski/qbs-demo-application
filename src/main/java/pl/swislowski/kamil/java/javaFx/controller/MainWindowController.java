@@ -15,6 +15,7 @@ import pl.swislowski.kamil.java.javaFx.service.MainWindowService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -104,16 +105,20 @@ public class MainWindowController {
         if (fileExtension != null && !fileExtension.equals("")) {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File selectedFile = directoryChooser.showDialog(primaryStage);
-            mainWindowService.directorySearch(selectedFile, fileExtension);
+            List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
+            mainWindowService.processFiles(fileList,null);
         } else {
+            noFileExtensionAlert();
+        }
+    }
 
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You haven't chosen the file extension!"
-                    , ButtonType.OK);
-            alert.showAndWait();
+    private void noFileExtensionAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "You haven't chosen the file extension!"
+                , ButtonType.OK);
+        alert.showAndWait();
 
-            if (alert.getResult() == ButtonType.OK) {
-                alert.close();
-            }
+        if (alert.getResult() == ButtonType.OK) {
+            alert.close();
         }
     }
 
