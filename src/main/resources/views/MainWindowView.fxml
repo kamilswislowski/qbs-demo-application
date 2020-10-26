@@ -14,12 +14,12 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="600.0">
                      <children>
-                        <TextField fx:id="stringOfBytes1TextField">
+                        <TextField fx:id="wantedBytesTextField">
                            <HBox.margin>
                               <Insets left="100.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="stringOfBytes2TextField">
+                        <TextField fx:id="swapBytesTextField">
                            <HBox.margin>
                               <Insets left="100.0" />
                            </HBox.margin>
