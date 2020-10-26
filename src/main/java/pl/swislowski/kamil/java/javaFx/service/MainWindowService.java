@@ -54,13 +54,13 @@ public class MainWindowService {
         }
     }
 
-    public void processFiles(List<File> files, byte[] wantedBytes){
+    public void processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes){
         LOGGER.info("processFiles()");
         //Przeiterować po liście
         try {
             Path tempDirPath = Files.createTempDirectory("tempDirReplacedFiles");
             for (File file : files) {
-                readFile(file, wantedBytes, tempDirPath);
+                readFile(file, wantedBytes, tempDirPath, swapBytes);
             }
             //TODO: Rzucić własny wyjątek biznesowy.
         } catch (IOException e) {
@@ -74,14 +74,12 @@ public class MainWindowService {
         //Zapisać zmodyfikowane pliki do oddzielnego folderu
     }
 
-    public File readFile(File file, byte[] wantedBytes, Path tempDirPath) {
+    public File readFile(File file, byte[] wantedBytes, Path tempDirPath, byte[] swapBytes) {
         try {
             byte[] bytes = Files.readAllBytes(file.toPath());
             BytesManipulation bytesManipulation = new BytesManipulation();
-//            int replace = bytesManipulation.replace(bytes, wantedBytes);
-//            LOGGER.info("######replace : " + replace);
+            bytesManipulation.replaceBytes(bytes, wantedBytes, swapBytes);
 
-            File replacedBytesFile = null;
             Path path = saveFile(bytes, tempDirPath);
             LOGGER.info("#####Path : " + path);
         } catch (IOException e) {

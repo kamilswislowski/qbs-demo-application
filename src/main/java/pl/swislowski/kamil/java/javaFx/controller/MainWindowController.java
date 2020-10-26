@@ -31,9 +31,9 @@ public class MainWindowController {
     @FXML
     private TextField fileExtensionTextField;
     @FXML
-    private TextField stringOfBytes1TextField;
+    private TextField wantedBytesTextField;
     @FXML
-    private TextField stringOfBytes2TextField;
+    private TextField swapBytesTextField;
     @FXML
     private Button replaceBytesButton;
 
@@ -101,12 +101,19 @@ public class MainWindowController {
 //        File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
         String fileExtension = fileExtensionTextField.getText();
+        String wantedBytesString = wantedBytesTextField.getText();
+        String swapBytesString = swapBytesTextField.getText();
+
         LOGGER.info("###### fileextension : " + fileExtension);
-        if (fileExtension != null && !fileExtension.equals("")) {
+        if (fileExtension != null && !fileExtension.equals("")
+                && wantedBytesString != null && !wantedBytesString.equals("")
+                && swapBytesString != null && !swapBytesString.equals("")) {
+
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File selectedFile = directoryChooser.showDialog(primaryStage);
             List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
-            mainWindowService.processFiles(fileList,null);
+
+            mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
         } else {
             noFileExtensionAlert();
         }

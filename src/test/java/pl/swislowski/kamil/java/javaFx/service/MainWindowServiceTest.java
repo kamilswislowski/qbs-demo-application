@@ -125,8 +125,9 @@ class MainWindowServiceTest {
         File fileToBytesArray = tempPathWrong.toFile();
 
         byte[] bytes = Files.readAllBytes(fileToBytesArray.toPath());
+        byte[] swapBytes = {1, 4, 6};
         //when:
-        File returnedFile = mainWindowService.readFile(file, bytes, tempDirPath);
+        File returnedFile = mainWindowService.readFile(file, bytes, tempDirPath, swapBytes);
         byte[] bytesFromReturnedFile = Files.readAllBytes(returnedFile.toPath());
         //then:
 //        Assertions.assertArrayEquals(bytes,bytes);
@@ -165,7 +166,10 @@ class MainWindowServiceTest {
         files.add(Paths.get("src/test/resources/views/data.txt").toFile());
         files.add(Paths.get("src/test/resources/views/koty.txt").toFile());
         //when:
-        mainWindowService.processFiles(files, null);
+        //FIXME : Napisać test do processFiles() - poprawne parametry i tp.
+        byte[] wantedBytes = {};
+        byte[] swapBytes = {};
+        mainWindowService.processFiles(files, wantedBytes, swapBytes);
 
     }
 }
