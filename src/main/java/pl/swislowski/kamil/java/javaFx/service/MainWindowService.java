@@ -75,13 +75,18 @@ public class MainWindowService {
     }
 
     public File readFile(File file, byte[] wantedBytes, Path tempDirPath, byte[] swapBytes) {
+
         try {
             byte[] bytes = Files.readAllBytes(file.toPath());
             BytesManipulation bytesManipulation = new BytesManipulation();
-            bytesManipulation.replaceBytes(bytes, wantedBytes, swapBytes);
+
+            byte[] bytes1 = bytesManipulation.replaceBytes(bytes, wantedBytes, swapBytes);
+            LOGGER.info("###############replacedBytes : " + Arrays.toString(bytes1));
 
             Path path = saveFile(bytes, tempDirPath);
             LOGGER.info("#####Path : " + path);
+
+            return path.toFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

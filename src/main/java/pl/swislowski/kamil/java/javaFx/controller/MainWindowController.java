@@ -15,6 +15,7 @@ import pl.swislowski.kamil.java.javaFx.service.MainWindowService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -112,8 +113,9 @@ public class MainWindowController {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File selectedFile = directoryChooser.showDialog(primaryStage);
             List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
-
+            fileDirectoryTextField.setText(selectedFile.getAbsolutePath());
             mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
+
         } else {
             noFileExtensionAlert();
         }
