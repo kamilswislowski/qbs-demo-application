@@ -7,14 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
 import pl.swislowski.kamil.java.javaFx.service.MainWindowService;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,8 +29,12 @@ public class MainWindowController {
 
     private MainWindowService mainWindowService;
 
+    private File selectedFile;
+
     @FXML
-    private TextField fileDirectoryTextField;
+    private Label chosenFileDirectoryLabel;
+    @FXML
+    private Label tempDirectoryPathLabel;
     @FXML
     private TextField fileExtensionTextField;
     @FXML
@@ -39,6 +46,9 @@ public class MainWindowController {
 
     public MainWindowController() {
         this.mainWindowService = new MainWindowService();
+    }
+
+    public void initialize() {
     }
 
     public static Stage createStage(FXMLLoader loader, Stage primaryStage, String title) throws IOException {
@@ -54,7 +64,7 @@ public class MainWindowController {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
 
-        stage.showAndWait();
+        stage.show();
 
         return stage;
     }
@@ -83,9 +93,9 @@ public class MainWindowController {
 
         try {
 
-            Stage stage = ResultWindowController.createStage(loader, primaryStage, "Main Window");
+            Stage stage = ResultWindowController.createStage(loader, primaryStage, "Result Window");
 
-            MainWindowController controller = loader.getController();
+            ResultWindowController controller = loader.getController();
             controller.setPrimaryStage(stage);
 
             stage.showAndWait();
@@ -100,23 +110,11 @@ public class MainWindowController {
 //        FileChooser fileChooser = new FileChooser();
 //        File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-        String fileExtension = fileExtensionTextField.getText();
-        String wantedBytesString = wantedBytesTextField.getText();
-        String swapBytesString = swapBytesTextField.getText();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        selectedFile = directoryChooser.showDialog(primaryStage);
+        chosenFileDirectoryLabel.setText(selectedFile.getAbsolutePath());
 
-        LOGGER.info("###### fileextension : " + fileExtension);
-        if (fileExtension != null && !fileExtension.equals("")
-                && wantedBytesString != null && !wantedBytesString.equals("")
-                && swapBytesString != null && !swapBytesString.equals("")) {
 
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            File selectedFile = directoryChooser.showDialog(primaryStage);
-            List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
-
-            mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
-        } else {
-            noFileExtensionAlert();
-        }
     }
 
     private void noFileExtensionAlert() {
@@ -129,5 +127,31 @@ public class MainWindowController {
         }
     }
 
+    @FXML
+    public void showResultAction() throws Exception {
+        if (selectedFile != null) {
+
+            String fileExtension = fileExtensionTextField.getText();
+            String wantedBytesString = wantedBytesTextField.getText();
+            String swapBytesString = swapBytesTextField.getText();
+
+            LOGGER.info("###### fileextension : " + fileExtension);
+            if (fileExtension != null && !fileExtension.equals("")
+                    && wantedBytesString != null && !wantedBytesString.equals("")
+                    && swapBytesString != null && !swapBytesString.equals("")) {
+
+
+                List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
+
+                ProcessFilesResultModel processFilesResultModel = mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
+                Path tempDirPath = processFilesResultModel.getTempDirPath();
+                if (tempDirPath != null) {
+                    tempDirectoryPathLabel.setText(tempDirPath.toString());
+                }
+            } else {
+                noFileExtensionAlert();
+            }
+        }
+    }
 
 }

@@ -25,7 +25,7 @@ public class InfoWindowController {
             MainWindowController controller = loader.getController();
             controller.setPrimaryStage(stage);
 
-            stage.showAndWait();
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

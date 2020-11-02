@@ -128,6 +128,7 @@ class MainWindowServiceTest {
         byte[] swapBytes = {1, 4, 6};
         //when:
         File returnedFile = mainWindowService.readFile(file, bytes, tempDirPath, swapBytes);
+        System.out.println("returnedFile : " + returnedFile);
         byte[] bytesFromReturnedFile = Files.readAllBytes(returnedFile.toPath());
         //then:
 //        Assertions.assertArrayEquals(bytes,bytes);
@@ -162,14 +163,24 @@ class MainWindowServiceTest {
     void processFiles() throws IOException {
         //given:
         MainWindowService mainWindowService = new MainWindowService();
+
+        File file = Paths.get("src/test/resources/views/data.txt").toFile();
+        byte[] bytes = Files.readAllBytes(file.toPath());
+
         List<File> files = new ArrayList<>();
         files.add(Paths.get("src/test/resources/views/data.txt").toFile());
         files.add(Paths.get("src/test/resources/views/koty.txt").toFile());
+
         //when:
         //FIXME : Napisać test do processFiles() - poprawne parametry i tp.
-        byte[] wantedBytes = {};
-        byte[] swapBytes = {};
+
+        byte[] wantedBytes = {97, 32, 107, 111, 116, 97, 46, 32};
+        byte[] swapBytes = {11, 22, 33, 55, 66, 34, 21, 12};
+        byte[] resultBytes = {65, 108, 97, 32, 109, 11, 22, 33, 55, 66, 34, 21, 12, 65, 32, 106, 97, 32, 109, 97, 109, 32, 109, 97, 107, 105, 46};
         mainWindowService.processFiles(files, wantedBytes, swapBytes);
+
+        //then:
+//        Assertions.assertArrayEquals(resultBytes, bytes, "Size of arrays isn't equal.");
 
     }
 }
