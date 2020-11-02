@@ -1,6 +1,8 @@
 package pl.swislowski.kamil.java.javaFx.controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +15,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ResultWindowController {
-    private MainWindowController mainWindowController;
-    @FXML
-    private Button closeButton;
+    private Stage primaryStage;
+
+    public void initialize(){
+    }
 
     public static Stage createStage(FXMLLoader loader, Stage primaryStage, String title) throws IOException {
         Parent root = loader.load();
@@ -37,7 +40,12 @@ public class ResultWindowController {
 
     @FXML
     private void closeButtonAction(){
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.hide();
+//            Stage stage = (Stage) closeButton.getScene().getWindow();
+//            stage.hide();
+        this.primaryStage.close();
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }

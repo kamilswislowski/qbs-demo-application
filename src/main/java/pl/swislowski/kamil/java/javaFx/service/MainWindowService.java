@@ -1,6 +1,7 @@
 package pl.swislowski.kamil.java.javaFx.service;
 
 import pl.swislowski.kamil.java.core.BytesManipulation;
+import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,11 +55,13 @@ public class MainWindowService {
         }
     }
 
-    public void processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes){
+    public ProcessFilesResultModel processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes){
         LOGGER.info("processFiles()");
         //Przeiterować po liście
+        ProcessFilesResultModel processFilesResultModel = new ProcessFilesResultModel();
         try {
             Path tempDirPath = Files.createTempDirectory("tempDirReplacedFiles");
+            processFilesResultModel.setTempDirPath(tempDirPath);
             for (File file : files) {
                 readFile(file, wantedBytes, tempDirPath, swapBytes);
             }
@@ -72,6 +75,8 @@ public class MainWindowService {
         //Zamienić je z nowym ciągiem bajtów
         //Stworzyć oddzielny folder
         //Zapisać zmodyfikowane pliki do oddzielnego folderu
+
+        return processFilesResultModel;
     }
 
     public File readFile(File file, byte[] wantedBytes, Path tempDirPath, byte[] swapBytes) {
@@ -81,7 +86,7 @@ public class MainWindowService {
             BytesManipulation bytesManipulation = new BytesManipulation();
 
             byte[] bytes1 = bytesManipulation.replaceBytes(bytes, wantedBytes, swapBytes);
-            LOGGER.info("###############replacedBytes : " + Arrays.toString(bytes1));
+//            LOGGER.info("###############replacedBytes : " + Arrays.toString(bytes1));
 
             Path path = saveFile(bytes, tempDirPath);
             LOGGER.info("#####Path : " + path);
