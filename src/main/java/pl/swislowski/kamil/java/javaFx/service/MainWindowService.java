@@ -1,6 +1,5 @@
 package pl.swislowski.kamil.java.javaFx.service;
 
-import org.apache.commons.lang3.StringUtils;
 import pl.swislowski.kamil.java.core.BytesManipulation;
 import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
@@ -51,7 +50,6 @@ public class MainWindowService {
 
     public ProcessFilesResultModel processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes) throws ProcessFilesException {
         LOGGER.info("processFiles()");
-        //Przeiterować po liście
         ProcessFilesResultModel processFilesResultModel = new ProcessFilesResultModel();
         try {
             Path tempDirPath = Files.createTempDirectory("tempDirReplacedFiles");
@@ -65,12 +63,6 @@ public class MainWindowService {
             throw new ProcessFilesException("Problem with creating temporary directory.", e);
         }
 
-        //Otworzyć pliki i odczytać zawartość
-        //Wyszukać zadane ciągi bajtów
-        //Zamienić je z nowym ciągiem bajtów
-        //Stworzyć oddzielny folder
-        //Zapisać zmodyfikowane pliki do oddzielnego folderu
-
         return processFilesResultModel;
     }
 
@@ -81,7 +73,6 @@ public class MainWindowService {
             BytesManipulation bytesManipulation = new BytesManipulation();
 
             byte[] bytes1 = bytesManipulation.replaceBytes(bytes, wantedBytes, swapBytes);
-//            LOGGER.info("###############replacedBytes : " + Arrays.toString(bytes1));
 
             Path path = saveFile(bytes, tempDirPath);
             LOGGER.info("#####Path : " + path);

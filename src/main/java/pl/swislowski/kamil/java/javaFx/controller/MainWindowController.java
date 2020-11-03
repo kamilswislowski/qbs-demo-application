@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 
 public class MainWindowController {
     private static final Logger LOGGER = Logger.getLogger(MainWindowController.class.getName());
-    //    private Main main;
     private Stage primaryStage;
 
     private MainWindowService mainWindowService;
@@ -72,40 +71,8 @@ public class MainWindowController {
         return stage;
     }
 
-//    public static Stage createStage(FXMLLoader loader, Stage primaryStage, String title) {
-//
-//        return stage;
-//
-//    }
-
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-    }
-//    public void setMain(Main main) {
-//        this.main = main;
-//    }
-
-    @FXML
-    public void replaceBytes() throws Exception {
-        LOGGER.info("replaceBytes method invocation #############");
-//        BytesManipulation bytesManipulation = new BytesManipulation();
-//        bytesManipulation.replace(null, null);
-
-        FXMLLoader loader = new FXMLLoader(ResultWindowController.class.getClassLoader().getResource("views/ResultWindowView.fxml"));
-
-
-        try {
-
-            Stage stage = ResultWindowController.createStage(loader, primaryStage, "Result Window");
-
-            ResultWindowController controller = loader.getController();
-            controller.setPrimaryStage(stage);
-
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -137,7 +104,6 @@ public class MainWindowController {
                     && wantedBytesString != null && !wantedBytesString.equals("")
                     && swapBytesString != null && !swapBytesString.equals("")) {
 
-
                 List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
                 boolean alphanumeric = StringUtils.isAlphanumeric(fileExtension);
                 if (alphanumeric) {
@@ -149,7 +115,7 @@ public class MainWindowController {
                     }
 
                 } else {
-                    alertDialog("You have provided incorrect characters!");
+                    alertDialog("You have provided incorrect characters! ");
                 }
 
             } else {
@@ -157,5 +123,4 @@ public class MainWindowController {
             }
         }
     }
-
 }
