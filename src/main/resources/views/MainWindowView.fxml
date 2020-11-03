@@ -6,28 +6,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.swislowski.kamil.java.javaFx.controller.MainWindowController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
             <Label layoutX="108.0" layoutY="24.0" prefHeight="17.0" prefWidth="183.0" text="Wybrany katalog z plikami" />
             <Label layoutX="107.0" layoutY="151.0" maxWidth="150.0" text="Rozszerzenie pliku" />
-            <VBox layoutX="-13.0" layoutY="262.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="87.71428571428572">
-               <children>
-                  <HBox prefHeight="50.0" prefWidth="600.0">
-                     <children>
-                        <TextField fx:id="wantedBytesTextField">
-                           <HBox.margin>
-                              <Insets left="100.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <TextField fx:id="swapBytesTextField">
-                           <HBox.margin>
-                              <Insets left="100.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
+            <VBox layoutX="-13.0" layoutY="262.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="87.71428571428572" />
             <VBox layoutY="101.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.topAnchor="101.0">
                <children>
                   <Label text="Tymczasowy katalog z przetworzonymi plikami znajduje się ">
@@ -40,16 +23,30 @@
             </VBox>
             <Label layoutX="113.0" layoutY="237.0" text="Ciąg bajtów nr 1" />
             <Label layoutX="369.0" layoutY="237.0" text="Ciąg bajtów nr 2" />
-            <Button fx:id="directoryButtton" layoutX="300.0" layoutY="180.0" mnemonicParsing="false" onAction="#chooseDirectoryAction" text="Wybierz katalog" />
-            <Button fx:id="showResultButton" layoutX="117.0" layoutY="312.0" mnemonicParsing="false" onAction="#showResultAction" text="Przetwórz pliki" />
-            <TextField fx:id="fileExtensionTextField" layoutX="81.0" layoutY="180.0" prefHeight="25.0" prefWidth="149.0" />
-            <HBox layoutX="39.0" layoutY="41.0" prefHeight="50.0" prefWidth="400.0">
+            <Button fx:id="directoryButtton" layoutX="361.0" layoutY="180.0" mnemonicParsing="false" onAction="#chooseDirectoryAction" text="Wybierz katalog" />
+            <Button fx:id="showResultButton" layoutX="109.0" layoutY="308.0" mnemonicParsing="false" onAction="#showResultAction" text="Przetwórz pliki" />
+            <TextField fx:id="fileExtensionTextField" layoutX="89.0" layoutY="180.0" prefHeight="25.0" prefWidth="149.0" />
+            <HBox layoutX="89.0" layoutY="50.0" prefHeight="50.0" prefWidth="396.0">
                <children>
                   <Label fx:id="chosenFileDirectoryLabel" prefHeight="17.0" prefWidth="559.0">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="-14.0" layoutY="258.0" prefHeight="50.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="wantedBytesTextField">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="swapBytesTextField">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </TextField>
                </children>
             </HBox>
          </children></AnchorPane>
