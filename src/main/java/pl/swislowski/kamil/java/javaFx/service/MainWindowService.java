@@ -1,5 +1,6 @@
 package pl.swislowski.kamil.java.javaFx.service;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.swislowski.kamil.java.core.BytesManipulation;
 import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
@@ -20,32 +21,24 @@ public class MainWindowService {
     public List<File> directorySearch(File file, String extension) {
         List<File> searchedFiles = new ArrayList<>();
 
-        String trimmedExtension = extension;
-//                removeAllNonAlphanumeric(extension);
-
         if (file.isDirectory()) {
             LOGGER.info("Directory : " + file);
             File[] files = file.listFiles();
             if (files != null) {
                 for (File f : files) {
-                    List<File> partialFiles = directorySearch(f, trimmedExtension);
+                    List<File> partialFiles = directorySearch(f, extension);
                     searchedFiles.addAll(partialFiles);
                 }
             }
         } else {
             LOGGER.info("File : " + file);
-            boolean filter = filter(file, trimmedExtension);
+            boolean filter = filter(file, extension);
             if (filter) {
                 searchedFiles.add(file);
             }
         }
 
         return searchedFiles;
-    }
-
-    public String removeAllNonAlphanumeric(String string) {
-        return string.replaceAll("[^a-zA-Z0-9]", "");
-//        return string.trim();
     }
 
     boolean filter(File file, String extension) {
@@ -69,7 +62,7 @@ public class MainWindowService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ProcessFilesException("Problem with creating temporary directory.",e);
+            throw new ProcessFilesException("Problem with creating temporary directory.", e);
         }
 
         //Otworzyć pliki i odczytać zawartość

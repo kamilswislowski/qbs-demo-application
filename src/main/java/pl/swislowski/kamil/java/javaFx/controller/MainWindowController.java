@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
 import pl.swislowski.kamil.java.javaFx.service.MainWindowService;
@@ -114,9 +115,8 @@ public class MainWindowController {
         chosenFileDirectoryLabel.setText(selectedFile.getAbsolutePath());
     }
 
-    private void noFileExtensionAlert() {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "You haven't chosen the file extension!"
-                , ButtonType.OK);
+    private void alertDialog(String contentText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, contentText, ButtonType.OK);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
@@ -139,14 +139,21 @@ public class MainWindowController {
 
 
                 List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
+                boolean alphanumeric = StringUtils.isAlphanumeric(fileExtension);
+                if (alphanumeric) {
 
-                ProcessFilesResultModel processFilesResultModel = mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
-                Path tempDirPath = processFilesResultModel.getTempDirPath();
-                if (tempDirPath != null) {
-                    fileTempDirPathTextField.setText(tempDirPath.toString());
+                    ProcessFilesResultModel processFilesResultModel = mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
+                    Path tempDirPath = processFilesResultModel.getTempDirPath();
+                    if (tempDirPath != null) {
+                        fileTempDirPathTextField.setText(tempDirPath.toString());
+                    }
+
+                } else {
+                    alertDialog("You have provided incorrect characters!");
                 }
+
             } else {
-                noFileExtensionAlert();
+                alertDialog("You haven't chosen the file extension!");
             }
         }
     }

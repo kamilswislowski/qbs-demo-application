@@ -150,15 +150,15 @@ class MainWindowServiceTest {
 
     }
 
-    @Test
-    void removeAllNonAlphanumeric() {
-        //given:
-        MainWindowService mainWindowService = new MainWindowService();
-        //when:
-        String s = mainWindowService.removeAllNonAlphanumeric(FILTERED_FILE_CORRECT_EXTENSION_WITH_DOUBLE_DOT);
-        //then:
-        Assertions.assertEquals(s.length(), FILTERED_FILE_CORRECT_EXTENSION_WITHOUT_DOT.length(), "Lengths aren't equal.");
-    }
+//    @Test
+//    void removeAllNonAlphanumeric() {
+//        //given:
+//        MainWindowService mainWindowService = new MainWindowService();
+//        //when:
+//        String s = mainWindowService.removeAllNonAlphanumeric(FILTERED_FILE_CORRECT_EXTENSION_WITH_DOUBLE_DOT);
+//        //then:
+//        Assertions.assertEquals(s.length(), FILTERED_FILE_CORRECT_EXTENSION_WITHOUT_DOT.length(), "Lengths aren't equal.");
+//    }
 
     @Test
     void processFiles() throws IOException, ProcessFilesException {
