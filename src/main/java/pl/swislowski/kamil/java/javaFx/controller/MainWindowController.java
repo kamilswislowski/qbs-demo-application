@@ -100,13 +100,14 @@ public class MainWindowController {
             String swapBytesString = swapBytesTextField.getText();
 
             LOGGER.info("###### fileextension : " + fileExtension);
-            if (fileExtension != null && !fileExtension.equals("")
-                    && wantedBytesString != null && !wantedBytesString.equals("")
-                    && swapBytesString != null && !swapBytesString.equals("")) {
 
-                List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
+            if (StringUtils.isNotBlank(fileExtension)
+                    && StringUtils.isNotBlank(wantedBytesString)
+                    && StringUtils.isNotBlank(swapBytesString)) {
+
                 boolean alphanumeric = StringUtils.isAlphanumeric(fileExtension);
                 if (alphanumeric) {
+                    List<File> fileList = mainWindowService.directorySearch(selectedFile, fileExtension);
 
                     ProcessFilesResultModel processFilesResultModel = mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
                     Path tempDirPath = processFilesResultModel.getTempDirPath();

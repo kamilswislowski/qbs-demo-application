@@ -56,7 +56,7 @@ class MainWindowServiceTest {
         Path tempPathCorrect = Files.createTempFile("hello", FILTERED_FILE_CORRECT_EXTENSION);
         File file = tempPathCorrect.toFile();
         //when:
-        boolean filter = mainWindowService.filter(file, FILTERED_FILE_CORRECT_EXTENSION);
+        boolean filter = mainWindowService.fileChecker(file, FILTERED_FILE_CORRECT_EXTENSION);
         //then:
         Assertions.assertTrue(filter, "Assertion returns false.");
 
@@ -128,7 +128,7 @@ class MainWindowServiceTest {
         byte[] bytes = Files.readAllBytes(fileToBytesArray.toPath());
         byte[] swapBytes = {1, 4, 6};
         //when:
-        File returnedFile = mainWindowService.readFile(file, bytes, tempDirPath, swapBytes);
+        File returnedFile = mainWindowService.readFile(file, bytes, swapBytes, tempDirPath);
         System.out.println("returnedFile : " + returnedFile);
         byte[] bytesFromReturnedFile = Files.readAllBytes(returnedFile.toPath());
         //then:
