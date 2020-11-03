@@ -19,7 +19,7 @@ public class ApplicationMain extends Application {
         controller.setPrimaryStage(primaryStage);
 
         primaryStage.setTitle("Okno powitalne");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 

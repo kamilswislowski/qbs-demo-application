@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
 import pl.swislowski.kamil.java.javaFx.service.MainWindowService;
 
@@ -34,7 +35,7 @@ public class MainWindowController {
     @FXML
     private Label chosenFileDirectoryLabel;
     @FXML
-    private Label tempDirectoryPathLabel;
+    private TextField fileTempDirPathTextField;
     @FXML
     private TextField fileExtensionTextField;
     @FXML
@@ -49,6 +50,7 @@ public class MainWindowController {
     }
 
     public void initialize() {
+        fileTempDirPathTextField.setEditable(false);
     }
 
     public static Stage createStage(FXMLLoader loader, Stage primaryStage, String title) throws IOException {
@@ -107,14 +109,9 @@ public class MainWindowController {
 
     @FXML
     public void chooseDirectoryAction() {
-//        FileChooser fileChooser = new FileChooser();
-//        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-
         DirectoryChooser directoryChooser = new DirectoryChooser();
         selectedFile = directoryChooser.showDialog(primaryStage);
         chosenFileDirectoryLabel.setText(selectedFile.getAbsolutePath());
-
-
     }
 
     private void noFileExtensionAlert() {
@@ -128,7 +125,7 @@ public class MainWindowController {
     }
 
     @FXML
-    public void showResultAction() throws Exception {
+    public void showResultAction() throws ProcessFilesException {
         if (selectedFile != null) {
 
             String fileExtension = fileExtensionTextField.getText();
@@ -146,7 +143,7 @@ public class MainWindowController {
                 ProcessFilesResultModel processFilesResultModel = mainWindowService.processFiles(fileList, wantedBytesString.getBytes(), swapBytesString.getBytes());
                 Path tempDirPath = processFilesResultModel.getTempDirPath();
                 if (tempDirPath != null) {
-                    tempDirectoryPathLabel.setText(tempDirPath.toString());
+                    fileTempDirPathTextField.setText(tempDirPath.toString());
                 }
             } else {
                 noFileExtensionAlert();

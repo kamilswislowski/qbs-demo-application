@@ -30,16 +30,12 @@
             </VBox>
             <VBox layoutY="101.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.topAnchor="101.0">
                <children>
-                  <Label text="Tymczasowy katalog z przetworzonymi plikamiznajduje się ">
+                  <Label text="Tymczasowy katalog z przetworzonymi plikami znajduje się ">
                      <VBox.margin>
                         <Insets left="100.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="tempDirectoryPathLabel" prefHeight="17.0" prefWidth="467.0">
-                     <VBox.margin>
-                        <Insets left="100.0" />
-                     </VBox.margin>
-                  </Label>
+                  <TextField fx:id="fileTempDirPathTextField" />
                </children>
             </VBox>
             <Label layoutX="113.0" layoutY="237.0" text="Ciąg bajtów nr 1" />

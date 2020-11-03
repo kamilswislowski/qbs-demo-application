@@ -1,6 +1,7 @@
 package pl.swislowski.kamil.java.javaFx.service;
 
 import pl.swislowski.kamil.java.core.BytesManipulation;
+import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 import pl.swislowski.kamil.java.javaFx.model.ProcessFilesResultModel;
 
 import java.io.File;
@@ -55,7 +56,7 @@ public class MainWindowService {
         }
     }
 
-    public ProcessFilesResultModel processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes){
+    public ProcessFilesResultModel processFiles(List<File> files, byte[] wantedBytes, byte[] swapBytes) throws ProcessFilesException {
         LOGGER.info("processFiles()");
         //Przeiterować po liście
         ProcessFilesResultModel processFilesResultModel = new ProcessFilesResultModel();
@@ -65,9 +66,10 @@ public class MainWindowService {
             for (File file : files) {
                 readFile(file, wantedBytes, tempDirPath, swapBytes);
             }
-            //TODO: Rzucić własny wyjątek biznesowy.
+
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ProcessFilesException("Problem with creating temporary directory.",e);
         }
 
         //Otworzyć pliki i odczytać zawartość

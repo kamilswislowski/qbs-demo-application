@@ -2,6 +2,7 @@ package pl.swislowski.kamil.java.javaFx.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.swislowski.kamil.java.javaFx.exception.ProcessFilesException;
 
 import java.io.File;
 import java.io.IOException;
@@ -160,7 +161,7 @@ class MainWindowServiceTest {
     }
 
     @Test
-    void processFiles() throws IOException {
+    void processFiles() throws IOException, ProcessFilesException {
         //given:
         MainWindowService mainWindowService = new MainWindowService();
 
